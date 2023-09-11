@@ -4,6 +4,7 @@ from item import Item
 
 class Phone(Item):
     # all = []
+    pay_rate = 0.1
 
     def __init__(self, name: str, price: float, quantity=0, broken_phones=0):
         # Call to super function to have access to all attributes/methods
