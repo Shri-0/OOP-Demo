@@ -2,6 +2,7 @@ import csv
 
 
 class Item:
+
     pay_rate = 0.8  # The pay rate after 20% discount
     all = []
 
@@ -39,15 +40,64 @@ class Item:
                 quantity=int(item.get('quantity')),
             )
 
+    @staticmethod
+    def is_integer(num):
+        # we will count out the floats that are point 0
+        # 5.0, 10.0
+        if isinstance(num, float):
+            #count floats that are .0
+            return num.is_integer()
+        elif isinstance(num, int):
+            return True
+        else:
+            return False
+
+
     def __repr__(self):
         return f"Item('{self.name}', {self.price}, {self.quantity})"
 
 
-Item.instantiate_from_csv()
-print("\n")
+class Phone(Item):
+    all = []
+    def __init__(self, name: str, price: float, quantity=0, broken_phones = 0):
+        # Call to super function to have access to all attributes/methods
+        super().__init__(
+			name, price, quantity
+		)
+        # Assign Self Object
 
-print(Item.all)
-print("\n")
+        # Run validations
+        assert price >= 0, f"Price {price} is not greater than or equal to 0"
+        assert quantity >= 0, f"Quantity {quantity} is not greater than or equal to 0"
+        assert broken_phones >= 0, f"Broken Phones {broken_phones} is not greater than or equal to 0"
+
+        #self.name = name
+        #self.price = price
+        #self.quantity = quantity
+        self.broken_phones = broken_phones
+
+        # actions to execute
+        Phone.all.append(self)
+
+phone1 = Item("jscPhonev10", 500, 5)
+#phone1.broken_phones = 1
+print(phone1.calculate_total_price())
+phone2 = Item("jscPhonev20", 700, 5)
+#phone2.broken_phones = 1
+
+
+
+
+
+
+
+#Item.instantiate_from_csv()
+#print("\n")
+
+#print(Item.all)
+#print("\n")
+
+#print(Item.is_integer(7.0))
 
 
 # for instance in Item.all:
